@@ -90,7 +90,7 @@
                   <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" id="statusDot"></span>
                 </span>
                 <span class="text-slate-200 font-bold">ESTADO DEL SERVIDOR:</span>
-                <span class="text-amber-300" id="liveDemandText">SISTEMA EN LÍNEA • Venta habilitada</span>
+                <span class="text-amber-300" id="liveDemandText">SISTEMA EN LÍNEA • Venta inhabilitada</span>
             </div>
         </div>
     </div>
@@ -150,16 +150,14 @@
         <section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-2">
             <div class="flex justify-between items-center text-xs">
                 <span class="font-bold text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line"></i> Nivel de Saturación de Mesas por Intentos
+                    <i class="fa-solid fa-chart-line"></i> Nivel de compras
                 </span>
                 <span id="progressBarText" class="font-mono font-bold text-slate-300">0% Agotado (Saturación Baja)</span>
             </div>
             <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800 p-0.5">
                 <div id="saturationProgressBar" class="bg-gradient-to-r from-emerald-500 via-amber-500 to-red-600 h-full w-0 transition-all duration-500 rounded-full"></div>
             </div>
-            <p class="text-[11px] text-slate-400">
-                Cada vez que intenta realizar una compra y el servidor colapsa, otros usuarios en línea adquieren lotes de mesas simultáneamente.
-            </p>
+         
         </section>
 
         <!-- TARIFAS / CATEGORIAS OVERVIEW -->
