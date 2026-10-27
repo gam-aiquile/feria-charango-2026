@@ -3,872 +3,719 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta de Mesas - XLII version Feria y Festival Nacional e Internacional del Charango Aiquile 2026</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        charango: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            500: '#d97706',
-                            700: '#b45309',
-                            800: '#92400e',
-                            900: '#78350f',
-                            dark: '#111827',
-                            gold: '#fbbf24',
-                            silver: '#94a3b8',
-                            bronze: '#d97706'
-                        }
-                    },
-                    fontFamily: {
-                        cinzel: ['Cinzel', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif']
-                    }
-                }
+    <title>Venta de Mesas - XLII Feria y Festival Nacional e Internacional del Charango Aiquile 2026</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-gold: #f59e0b;
+            --accent-silver: #94a3b8;
+            --accent-double: #a855f7;
+            --accent-bronze: #d97706;
+            --status-available: #10b981;
+            --status-sold: #ef4444;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #311b92 100%);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        header h1 {
+            color: #fbbf24;
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header h2 {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        header p {
+            color: #a5b4fc;
+            font-size: 0.9rem;
+            margin-top: 0.4rem;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (min-width: 1024px) {
+            .main-container {
+                display: grid;
+                grid-template-columns: 1fr 340px;
+                padding: 1.5rem;
             }
         }
-    </script>
 
-    <style>
-        body {
-            background-color: #0b0f19;
-            color: #f8fafc;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-image: radial-gradient(rgba(217, 119, 6, 0.08) 1px, transparent 0);
-            background-size: 28px 28px;
+        .map-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: auto;
         }
 
-        .font-cinzel {
-            font-family: 'Cinzel', serif;
+        .legend-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
         }
 
-        /* Interactive Map Styling */
-        .table-node {
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        /* SVG Layout Styling */
+        .svg-container {
+            width: 100%;
+            max-width: 750px;
+            background-color: #0b1120;
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #334155;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            user-select: none;
+        }
+
+        .structure {
+            fill: #1e293b;
+            stroke: #475569;
+            stroke-width: 1.5;
+        }
+
+        .stage-area {
+            fill: #78350f;
+            stroke: #d97706;
+            stroke-width: 2;
+        }
+
+        .dance-floor {
+            fill: #1e1b4b;
+            stroke: #6366f1;
+            stroke-width: 1.5;
+            stroke-dasharray: 4,4;
+        }
+
+        .sound-booth {
+            fill: #dc2626;
+            stroke: #f87171;
+            stroke-width: 1.5;
+        }
+
+        .bleachers {
+            fill: #334155;
+            stroke: #64748b;
+        }
+
+        .restrooms {
+            fill: #0284c7;
+            stroke: #38bdf8;
+        }
+
+        .table-group {
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .table-node:hover {
-            filter: brightness(1.35);
-            transform: scale(1.03);
-            transform-origin: center;
+            transition: transform 0.15s ease, filter 0.15s ease;
         }
 
-        .table-node.selected rect.base-rect {
-            stroke: #38bdf8 !important;
-            stroke-width: 3px !important;
-            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+        .table-group:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
         }
 
-        .shimmer {
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 1.8s infinite;
+        .table-shape {
+            stroke-width: 1.5;
+            transition: fill 0.4s ease, stroke 0.4s ease;
         }
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+
+        /* Category Colors */
+        .table-oro .table-shape { fill: var(--accent-gold); stroke: #fbbf24; }
+        .table-plata-simple .table-shape { fill: #64748b; stroke: #cbd5e1; }
+        .table-plata-doble .table-shape { fill: var(--accent-double); stroke: #c084fc; }
+        .table-bronce .table-shape { fill: var(--accent-bronze); stroke: #f59e0b; }
+
+        .table-sold .table-shape { 
+            fill: var(--status-sold) !important; 
+            stroke: #f87171 !important; 
+        }
+
+        .table-sold {
+            cursor: not-allowed;
+            opacity: 0.75;
+        }
+
+        .table-sold:hover {
+            transform: none;
+            filter: none;
+        }
+
+        .table-number {
+            font-size: 11px;
+            font-weight: bold;
+            fill: #ffffff;
+            text-anchor: middle;
+            dominant-baseline: central;
+            pointer-events: none;
+        }
+
+        .table-sold .table-number {
+            fill: #fee2e2;
+        }
+
+        /* Sidebar Control Panel */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .panel-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .panel-card h3 {
+            font-size: 1.1rem;
+            color: #f1f5f9;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        .stat-box {
+            background: #0f172a;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .stat-box .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar-bg {
+            background-color: #334155;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 0.8rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #ef4444 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .price-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            padding: 0.4rem 0.6rem;
+            background-color: #0f172a;
+            border-radius: 6px;
+        }
+
+        .badge {
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        .badge-oro { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .badge-plata-simple { background-color: rgba(148, 163, 184, 0.2); color: #cbd5e1; }
+        .badge-plata-doble { background-color: rgba(168, 85, 247, 0.2); color: #c084fc; }
+        .badge-bronce { background-color: rgba(217, 119, 6, 0.2); color: #f59e0b; }
+
+        .selected-table-info {
+            background-color: #0f172a;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-buy {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 0.8rem;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-buy:hover { background-color: #1d4ed8; }
+        .btn-buy:disabled { background-color: #475569; cursor: not-allowed; }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 0.85rem;
+            color: #fbbf24;
+            margin-top: 0.5rem;
+            text-align: center;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-amber-500 selection:text-slate-900">
+<body>
 
-    <!-- TOP SYSTEM STATUS BAR -->
-    <div class="bg-gradient-to-r from-amber-950 via-slate-900 to-amber-950 border-b border-amber-500/20 text-xs py-2 px-4 sticky top-0 z-40 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <div class="flex items-center space-x-2 font-medium">
-                <span class="relative flex h-2.5 w-2.5">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" id="statusPing"></span>
-                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" id="statusDot"></span>
-                </span>
-                <span class="text-slate-200 font-bold">ESTADO DEL SERVIDOR:</span>
-                <span class="text-amber-300" id="liveDemandText">SISTEMA EN LÍNEA • Venta habilitada</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN HEADER -->
-    <header class="bg-slate-900/90 border-b border-slate-800 shadow-xl">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                
-                <!-- Logo & Event Info -->
-                <div class="flex items-center space-x-4 text-center md:text-left">
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-400 p-0.5 shadow-lg shadow-amber-500/20 shrink-0">
-                        <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-amber-400">
-                            <i class="fa-solid fa-guitar text-2xl"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-center md:justify-start space-x-2">
-                            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Gestión 2026</span>
-                            <span class="text-slate-400 text-xs">Aiquile - Cochabamba</span>
-                        </div>
-                        <h1 class="text-xl sm:text-2xl font-extrabold font-cinzel text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500">
-                            XLII version Feria y Festival Nacional e Internacional del Charango
-                        </h1>
-                        <p class="text-xs text-slate-400 flex items-center justify-center md:justify-start gap-2 mt-0.5">
-                            <span><i class="fa-regular fa-calendar-check text-amber-400 mr-1"></i> Sábado, 31 de Octubre de 2026</span>
-                            <span>•</span>
-                            <span><i class="fa-solid fa-building-columns text-amber-400 mr-1"></i> Coliseo Regional de Aiquile</span>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Real-time Metrics Card -->
-                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3 flex items-center gap-5 text-xs w-full md:w-auto justify-between shadow-inner">
-                    <div class="space-y-1">
-                        <div class="text-slate-400 text-[10px] uppercase font-semibold tracking-wider">Mesas Vendidas</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="font-mono font-extrabold text-amber-400 text-base" id="soldCounter">0 / 90</span>
-                            <span class="text-[10px] text-slate-500" id="soldPercentage">(0%)</span>
-                        </div>
-                    </div>
-                    <div class="border-l border-slate-800 h-8"></div>
-                    <div class="space-y-1 text-right">
-                        <div class="text-slate-400 text-[10px] uppercase font-semibold tracking-wider">Disponibilidad</div>
-                        <div class="font-bold text-emerald-400 font-mono text-sm" id="availableText">90 Mesas Libres</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+    <header>
+        <h1>XLII Feria y Festival Nacional e Internacional del Charango</h1>
+        <h2>Aiquile - Gestión 2026</h2>
+        <p>Venta Oficial de Mesas | Fecha del Evento: 31 de Octubre de 2026</p>
     </header>
 
-    <!-- CONTENT BODY -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8 flex-grow">
+    <div class="main-container">
+        <!-- Mapa de Mesas SVG -->
+        <section class="map-section">
+            <div class="legend-bar">
+                <div class="legend-item"><div class="legend-color" style="background: var(--accent-gold);"></div> Oro (400 BS)</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--accent-silver);"></div> Plata Simple (350 BS)</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--accent-double);"></div> Plata Doble (500 BS)</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--accent-bronze);"></div> Bronce (200 BS)</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--status-sold);"></div> Ocupado / Vendido</div>
+            </div>
 
-        <!-- PROGRESS BAR OF PURCHASES -->
-        <section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-2">
-            <div class="flex justify-between items-center text-xs">
-                <span class="font-bold text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line"></i> Nivel de compras
-                </span>
-               
+            <div class="svg-container">
+                <svg viewBox="0 0 500 850" id="stadium-map">
+                    <!-- Marco exterior coliseo -->
+                    <rect x="10" y="10" width="480" height="830" rx="10" class="structure" />
+                    
+                    <!-- Graderías Izquierda y Derecha -->
+                    <rect x="15" y="100" width="30" height="600" class="bleachers" />
+                    <text x="30" y="400" fill="#94a3b8" font-size="12" writing-mode="tb" text-anchor="middle">GRADERIAS</text>
+                    
+                    <rect x="455" y="100" width="30" height="600" class="bleachers" />
+                    <text x="470" y="400" fill="#94a3b8" font-size="12" writing-mode="tb" text-anchor="middle">GRADERIAS</text>
+
+                    <!-- Baños -->
+                    <rect x="455" y="100" width="30" height="70" class="restrooms" />
+                    <text x="470" y="135" fill="#ffffff" font-size="9" text-anchor="middle">BAÑOS</text>
+
+                    <!-- Escenario -->
+                    <rect x="100" y="740" width="300" height="80" class="stage-area" />
+                    <text x="250" y="785" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">ESCENARIO</text>
+                    <text x="250" y="805" fill="#fcd34d" font-size="10" text-anchor="middle">18,72 m x 8,00 m</text>
+
+                    <!-- Pista de Baile -->
+                    <rect x="120" y="570" width="260" height="150" class="dance-floor" />
+                    <text x="250" y="650" fill="#818cf8" font-size="16" font-weight="bold" text-anchor="middle">PISTA DE BAILE</text>
+                    <text x="250" y="670" fill="#94a3b8" font-size="10" text-anchor="middle">10,00 m x 10,00 m</text>
+
+                    <!-- Control de Sonido -->
+                    <rect x="210" y="270" width="80" height="50" class="sound-booth" />
+                    <text x="250" y="293" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">CONTROL</text>
+                    <text x="250" y="306" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">SONIDO</text>
+
+                    <!-- Vallas de Seguridad -->
+                    <line x1="50" y1="730" x2="450" y2="730" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5" />
+                    <line x1="50" y1="560" x2="450" y2="560" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5" />
+
+                    <!-- Grupo de Mesas (Dinámico vía JavaScript) -->
+                    <g id="tables-layer"></g>
+                </svg>
             </div>
-            <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800 p-0.5">
-                <div id="saturationProgressBar" class="bg-gradient-to-r from-emerald-500 via-amber-500 to-red-600 h-full w-0 transition-all duration-500 rounded-full"></div>
-            </div>
-         
         </section>
 
-        <!-- TARIFAS / CATEGORIAS OVERVIEW -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <!-- ORO -->
-            <div class="bg-gradient-to-b from-amber-950/30 to-slate-900 border border-amber-500/30 rounded-2xl p-4 relative overflow-hidden group">
-                <div class="flex justify-between items-start mb-2">
-                    <div>
-                        <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                            Preferencial
-                        </span>
-                        <h3 class="text-lg font-bold font-cinzel text-amber-300 mt-1">Oro</h3>
+        <!-- Sidebar / Panel lateral -->
+        <aside class="sidebar">
+            <!-- Estadísticas de Disponibilidad -->
+            <div class="panel-card">
+                <h3>Estado del Sistema</h3>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="number" id="stat-available">90</div>
+                        <div class="label">Disponibles</div>
                     </div>
-                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xs font-bold">
-                        <i class="fa-solid fa-crown"></i>
-                    </div>
-                </div>
-                <div class="text-2xl font-extrabold text-slate-100 font-mono mb-2">400 <span class="text-xs text-amber-400">BS</span></div>
-                <div class="flex justify-between text-xs text-slate-400 border-t border-slate-800 pt-2">
-                    <span>Total: <strong>49 mesas</strong></span>
-                    <span id="catAvailable-ORO" class="text-emerald-400 font-bold">49 Libres</span>
-                </div>
-            </div>
-
-            <!-- PLATA DOBLE -->
-            <div class="bg-gradient-to-b from-slate-800/40 to-slate-900 border border-slate-600/30 rounded-2xl p-4 relative overflow-hidden group">
-                <div class="flex justify-between items-start mb-2">
-                    <div>
-                        <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-slate-400/20 text-slate-200 border border-slate-400/30">
-                            Intermedio
-                        </span>
-                        <h3 class="text-lg font-bold font-cinzel text-slate-200 mt-1">Plata Doble</h3>
-                    </div>
-                    <div class="w-8 h-8 rounded-lg bg-slate-500/20 border border-slate-400/40 flex items-center justify-center text-slate-300 text-xs font-bold">
-                        <i class="fa-solid fa-gem"></i>
+                    <div class="stat-box">
+                        <div class="number" id="stat-sold" style="color: #ef4444;">0</div>
+                        <div class="label">Ocupadas</div>
                     </div>
                 </div>
-                <div class="text-2xl font-extrabold text-slate-100 font-mono mb-2">500 <span class="text-xs text-slate-400">BS</span></div>
-                <div class="flex justify-between text-xs text-slate-400 border-t border-slate-800 pt-2">
-                    <span>Total: <strong>10 mesas</strong></span>
-                    <span id="catAvailable-PLATA DOBLE" class="text-emerald-400 font-bold">10 Libres</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem;">
+                    <span>Ocupación Recinto:</span>
+                    <span id="stat-percent" style="font-weight: bold; color: #f8fafc;">0%</span>
                 </div>
             </div>
 
-            <!-- PLATA SIMPLE -->
-            <div class="bg-gradient-to-b from-slate-800/40 to-slate-900 border border-slate-600/30 rounded-2xl p-4 relative overflow-hidden group">
-                <div class="flex justify-between items-start mb-2">
-                    <div>
-                        <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-slate-400/20 text-slate-200 border border-slate-400/30">
-                            Intermedio
-                        </span>
-                        <h3 class="text-lg font-bold font-cinzel text-slate-200 mt-1">Plata Simple</h3>
+            <!-- Precios -->
+            <div class="panel-card">
+                <h3>Categorías y Tarifas</h3>
+                <div class="price-list">
+                    <div class="price-item">
+                        <span class="badge badge-oro">ORO (49 Mesas)</span>
+                        <span style="font-weight: bold;">400 BS</span>
                     </div>
-                    <div class="w-8 h-8 rounded-lg bg-slate-500/20 border border-slate-400/40 flex items-center justify-center text-slate-300 text-xs font-bold">
-                        <i class="fa-regular fa-gem"></i>
+                    <div class="price-item">
+                        <span class="badge badge-plata-simple">PLATA SIMPLE (10 Mesas)</span>
+                        <span style="font-weight: bold;">350 BS</span>
                     </div>
-                </div>
-                <div class="text-2xl font-extrabold text-slate-100 font-mono mb-2">350 <span class="text-xs text-slate-400">BS</span></div>
-                <div class="flex justify-between text-xs text-slate-400 border-t border-slate-800 pt-2">
-                    <span>Total: <strong>10 mesas</strong></span>
-                    <span id="catAvailable-PLATA SIMPLE" class="text-emerald-400 font-bold">10 Libres</span>
+                    <div class="price-item">
+                        <span class="badge badge-plata-doble">PLATA DOBLE (10 Mesas)</span>
+                        <span style="font-weight: bold;">500 BS</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="badge badge-bronce">BRONCE (21 Mesas)</span>
+                        <span style="font-weight: bold;">200 BS</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- BRONCE -->
-            <div class="bg-gradient-to-b from-amber-950/20 to-slate-900 border border-orange-800/30 rounded-2xl p-4 relative overflow-hidden group">
-                <div class="flex justify-between items-start mb-2">
-                    <div>
-                        <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-orange-900/30 text-orange-300 border border-orange-700/40">
-                            Pista de Baile
-                        </span>
-                        <h3 class="text-lg font-bold font-cinzel text-orange-300 mt-1">Bronce (A-J)</h3>
-                    </div>
-                    <div class="w-8 h-8 rounded-lg bg-orange-800/20 border border-orange-700/40 flex items-center justify-center text-orange-400 text-xs font-bold">
-                        <i class="fa-solid fa-shield"></i>
-                    </div>
-                </div>
-                <div class="text-2xl font-extrabold text-slate-100 font-mono mb-2">200 <span class="text-xs text-orange-400">BS</span></div>
-                <div class="flex justify-between text-xs text-slate-400 border-t border-slate-800 pt-2">
-                    <span>Total: <strong>21 mesas</strong></span>
-                    <span id="catAvailable-BRONCE" class="text-emerald-400 font-bold">21 Libres</span>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- MAP AND CHECKOUT PANEL LAYOUT -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-            
-            <!-- SVG MAP CONTAINER (Takes 2 Columns) -->
-            <div class="lg:col-span-2 bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4">
-                
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
-                    <div>
-                        <h2 class="text-lg font-bold font-cinzel text-amber-400 flex items-center gap-2">
-                            <i class="fa-solid fa-map-location-dot"></i> Plano Interactivo del Coliseo
-                        </h2>
-                        <p class="text-xs text-slate-400">
-                            Haga clic en una mesa <span class="text-emerald-400 font-semibold">LIBRE</span> para seleccionarla e intentar comprar.
-                        </p>
-                    </div>
-
-                    <!-- Map Legend -->
-                    <div class="flex flex-wrap items-center gap-2 text-[11px] bg-slate-950 p-2 rounded-xl border border-slate-800">
-                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-emerald-500"></span> Libre</span>
-                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-red-600"></span> Vendido</span>
-                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-sky-400"></span> Seleccionada</span>
-                    </div>
+            <!-- Selección y Procesamiento -->
+            <div class="panel-card">
+                <h3>Comprar / Reservar</h3>
+                <div id="selection-placeholder" style="color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 1rem 0;">
+                    Seleccione una mesa disponible en el plano para iniciar la compra.
                 </div>
 
-                <!-- SVG RENDER OF PDF PLANO -->
-                <div class="relative bg-slate-950 rounded-2xl border border-slate-800 p-2 sm:p-4 overflow-x-auto min-h-[550px] flex items-center justify-center">
-                    <svg id="coliseoMap" viewBox="0 0 900 1350" class="w-full max-w-[850px] h-auto drop-shadow-2xl select-none">
-                        <defs>
-                            <linearGradient id="stageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#b45309" />
-                                <stop offset="100%" stop-color="#451a03" />
-                            </linearGradient>
-                            <linearGradient id="danceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#1e293b" />
-                                <stop offset="100%" stop-color="#0f172a" />
-                            </linearGradient>
-                            <pattern id="soldHatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-                                <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(239, 68, 68, 0.4)" stroke-width="2" />
-                            </pattern>
-                        </defs>
+                <div id="selection-details" class="selected-table-info" style="display: none;">
+                    <div style="font-weight: bold; font-size: 1.1rem; color: #38bdf8;" id="detail-table-id">Mesa #--</div>
+                    <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 0.2rem;" id="detail-category">Categoría: --</div>
+                    <div style="font-size: 1.2rem; font-weight: bold; color: #fbbf24; margin-top: 0.5rem;" id="detail-price">0 BS</div>
 
-                        <!-- BASE COLISEO BOUNDS -->
-                        <rect x="10" y="10" width="880" height="1330" rx="16" fill="#090d16" stroke="#1e293b" stroke-width="3"/>
-
-                        <!-- GRADERIAS -->
-                        <g transform="translate(25, 40)">
-                            <rect x="0" y="0" width="80" height="1250" fill="#1e293b" rx="4" stroke="#334155"/>
-                            <text x="40" y="625" fill="#64748b" font-size="20" font-weight="bold" text-anchor="middle" transform="rotate(-90 40 625)" font-family="Cinzel">G R A D E R I A S</text>
-                        </g>
-                        <g transform="translate(795, 40)">
-                            <rect x="0" y="0" width="80" height="1250" fill="#1e293b" rx="4" stroke="#334155"/>
-                            <text x="40" y="625" fill="#64748b" font-size="20" font-weight="bold" text-anchor="middle" transform="rotate(90 40 625)" font-family="Cinzel">G R A D E R I A S</text>
-                        </g>
-
-                        <!-- BAÑOS -->
-                        <g transform="translate(795, 120)">
-                            <rect x="0" y="0" width="80" height="160" fill="#2563eb" rx="4" stroke="#1d4ed8"/>
-                            <text x="40" y="85" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle" transform="rotate(90 40 85)">BAÑOS</text>
-                        </g>
-
-                        <!-- ESCENARIO PRINCIPAL (18.72m x 8.00m) -->
-                        <g transform="translate(180, 1150)">
-                            <rect x="0" y="0" width="540" height="150" fill="url(#stageGrad)" rx="8" stroke="#f59e0b" stroke-width="3"/>
-                            <text x="270" y="70" fill="#fef3c7" font-size="28" font-weight="900" text-anchor="middle" font-family="Cinzel" letter-spacing="4">ESCENARIO PRINCIPAL</text>
-                            <text x="270" y="105" fill="#fbbf24" font-size="14" font-weight="bold" text-anchor="middle">18.72m × 8.00m</text>
-                        </g>
-
-                        <!-- PISTA DE BAILE (10.00m) -->
-                        <g transform="translate(180, 940)">
-                            <rect x="0" y="0" width="540" height="180" fill="url(#danceGrad)" rx="6" stroke="#475569" stroke-width="2"/>
-                            <circle cx="270" cy="90" r="50" fill="none" stroke="#334155" stroke-width="2"/>
-                            <text x="270" y="85" fill="#94a3b8" font-size="20" font-weight="extrabold" text-anchor="middle" font-family="Cinzel" letter-spacing="2">PISTA DE BAILE</text>
-                            <text x="270" y="110" fill="#64748b" font-size="13" font-weight="bold" text-anchor="middle">ÁREA LIBRE 10.00m</text>
-                        </g>
-
-                        <!-- CONTROL DE SONIDO -->
-                        <g transform="translate(390, 340)">
-                            <rect x="0" y="0" width="120" height="100" fill="#dc2626" rx="6" stroke="#f87171" stroke-width="2"/>
-                            <text x="60" y="48" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">CONTROL</text>
-                            <text x="60" y="68" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">SONIDO</text>
-                        </g>
-
-                        <!-- PASILLOS CIRCULACION -->
-                        <g fill="#64748b" font-size="11" font-weight="bold" text-anchor="middle">
-                            <text x="220" y="470">← CIRCULACIÓN →</text>
-                            <text x="680" y="470">← CIRCULACIÓN →</text>
-                        </g>
-
-                        <!-- CONTENEDOR DE MESAS -->
-                        <g id="tablesGroup"></g>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- CHECKOUT & RESERVATION PANEL (1 Column) -->
-            <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-2xl space-y-5 sticky top-20">
-                <div class="border-b border-slate-800 pb-3">
-                    <h3 class="font-bold text-slate-100 font-cinzel text-base flex items-center gap-2">
-                        <i class="fa-solid fa-ticket text-amber-400"></i> Panel de Reserva y Compra
-                    </h3>
-                    <p class="text-xs text-slate-400 mt-0.5">
-                        Seleccione una mesa disponible para intentar procesar la transacción.
-                    </p>
-                </div>
-
-                <!-- SELECTED TABLE DETAILS -->
-                <div id="selectionCard" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
-                    <div class="flex justify-between items-center text-xs text-slate-400">
-                        <span>Mesa Seleccionada:</span>
-                        <span id="selectedStatusBadge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">
-                            Ninguna
-                        </span>
-                    </div>
-
-                    <div class="flex items-center space-x-3">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-extrabold text-lg" id="selectedIcon">
-                            <i class="fa-solid fa-chair"></i>
-                        </div>
-                        <div>
-                            <div class="text-lg font-bold text-slate-100" id="selectedTableName">Mesa No Seleccionada</div>
-                            <div class="text-xs text-amber-400 font-semibold" id="selectedTableCategory">Haga clic sobre el mapa</div>
-                        </div>
-                    </div>
-
-                    <div class="pt-2 border-t border-slate-800 flex justify-between items-end">
-                        <div>
-                            <div class="text-[10px] text-slate-500 uppercase font-semibold">Precio Unitario</div>
-                            <div class="text-2xl font-extrabold text-slate-100 font-mono" id="selectedPrice">0 <span class="text-xs text-amber-400">BS</span></div>
-                        </div>
-                        <div class="text-right text-[11px] text-slate-400">
-                            <span>Ingreso prioritario coliseo</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BUY FORM -->
-                <form id="purchaseForm" onsubmit="submitPurchaseForm(event)" class="space-y-3">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Nombre Completo</label>
-                        <input type="text" id="custName" required placeholder="Ej: Juan Pérez Morales" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Cédula de Identidad (CI / NIT)</label>
-                        <input type="text" id="custCi" required placeholder="Ej: 7894561 CB" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
-                    </div>
-
-                    <button type="submit" id="btnBuySubmit" disabled class="w-full bg-slate-800 text-slate-500 cursor-not-allowed font-extrabold py-3 px-4 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-lock"></i> Seleccione una Mesa Libre
+                    <button class="btn-buy" id="btn-process-buy" onclick="attemptPurchase()">
+                        <span id="btn-buy-text">Procesar Pago y Reservar</span>
                     </button>
-                </form>
-
-                <div class="bg-amber-950/20 border border-amber-500/20 rounded-xl p-3 text-[11px] text-amber-200/70 space-y-1">
-                    <p class="font-bold flex items-center gap-1 text-amber-300">
-                        <i class="fa-solid fa-shield-halved"></i> Garantía de Compra
-                    </p>
-                    <p>Las reservas se confirman en tiempo real tras la validación con el servidor central.</p>
+                    <div class="loading-text" id="loading-status" style="display: none;">
+                        <span class="spinner"></span> <span id="loading-msg">Procesando solicitud en el servidor...</span>
+                    </div>
                 </div>
             </div>
-
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 border-t border-slate-800 py-6 px-4 mt-8">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-left">
-            <div>
-                <p class="font-bold text-slate-300 font-cinzel">Gobierno Autónomo Municipal de Aiquile</p>
-                <p>Comité Organizador XLII Feria del Charango Aiquile 2026</p>
-            </div>
-            <p>© 2026 Aiquile, Cochabamba, Bolivia.</p>
-        </div>
-    </footer>
-
-    <!-- MODAL 1: PROCESSING / LOADING OVERLAY -->
-    <div id="processingModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-slate-700 rounded-3xl p-8 max-w-md w-full text-center space-y-6 shadow-2xl relative overflow-hidden">
-            <div class="absolute inset-0 shimmer opacity-20 pointer-events-none"></div>
-            
-            <div class="relative flex justify-center">
-                <div class="w-20 h-20 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin flex items-center justify-center"></div>
-                <div class="absolute inset-0 flex items-center justify-center text-amber-400 text-xl font-bold">
-                    <i class="fa-solid fa-guitar"></i>
-                </div>
-            </div>
-
-            <div class="space-y-2">
-                <h3 class="text-lg font-bold text-slate-100 font-cinzel">Conectando con el Servidor...</h3>
-                <p class="text-xs text-slate-400" id="processingStepText">
-                    Procesando pago y verificando disponibilidad de mesa...
-                </p>
-            </div>
-
-            <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
-                <div id="progressBar" class="bg-amber-500 h-full w-0 transition-all duration-300"></div>
-            </div>
-
-            <p class="text-[10px] text-slate-500 italic">
-                Por favor no cierre la ventana. Validando datos con la pasarela oficial...
-            </p>
-        </div>
+        </aside>
     </div>
 
-    <!-- MODAL 2: SATURATION ERROR 503 -->
-    <div id="errorModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-lg z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-red-500/50 rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center space-y-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
-            
-            <div class="w-20 h-20 bg-red-500/10 border-2 border-red-500/40 rounded-full flex items-center justify-center mx-auto text-red-500 text-3xl shadow-lg shadow-red-500/10">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
-
-            <div>
-                <span class="bg-red-950 text-red-400 border border-red-800/80 px-3 py-1 rounded-full text-xs font-mono font-extrabold tracking-wider uppercase">
-                    ⚠️ ERROR 503: SERVIDOR SATURADO
-                </span>
-                <h3 class="text-xl font-bold font-cinzel text-slate-100 mt-3">
-                    Petición Excedida / Compra Fallida
-                </h3>
-            </div>
-
-            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-2 text-left">
-                <p class="leading-relaxed">
-                    El sistema ha sufrido una <strong class="text-amber-400">saturación masiva por exceso de conexiones simultáneas</strong> de usuarios intentando comprar mesas para la Feria del Charango Aiquile 2026.
-                </p>
-                <div class="border-t border-slate-800 pt-2 text-slate-400 text-[11px] space-y-1">
-                    <p>• <strong class="text-red-400">Mesa solicitada:</strong> <span id="failedTableName" class="text-amber-300 font-bold"></span></p>
-                    <p>• <strong class="text-red-400">Estado:</strong> La mesa intentada y un lote adicional acaban de ser adquiridos por otros usuarios durante la saturación.</p>
-                </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                <button onclick="closeErrorModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-3 px-4 rounded-xl text-xs transition border border-slate-700">
-                    Entendido / Volver al Mapa
-                </button>
-                <button onclick="retryPurchase()" class="w-full bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-extrabold py-3 px-4 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-arrows-rotate"></i> Intentar Más Tarde
-                </button>
-            </div>
-
-            <p class="text-[10px] text-slate-500">
-                Sugerencia: Seleccione otra mesa disponible en el plano antes de que se agoten por completo.
-            </p>
-        </div>
-    </div>
-
-    <!-- MODAL 3: EVENT COMPLETELY SOLD OUT NOTICE -->
-    <div id="soldOutModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-lg z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-amber-500/50 rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center space-y-6 shadow-2xl relative">
-            
-            <div class="w-20 h-20 bg-amber-500/10 border-2 border-amber-500/40 rounded-full flex items-center justify-center mx-auto text-amber-400 text-3xl shadow-lg shadow-amber-500/10">
-                <i class="fa-solid fa-ban"></i>
-            </div>
-
-            <div>
-                <span class="bg-amber-950 text-amber-400 border border-amber-800/80 px-3 py-1 rounded-full text-xs font-mono font-extrabold tracking-wider uppercase">
-                    🚫 AGOTADO AL 100%
-                </span>
-                <h3 class="text-2xl font-bold font-cinzel text-slate-100 mt-3">
-                    EVENTO TOTALMENTE AGOTADO
-                </h3>
-            </div>
-
-            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-2">
-                <p class="leading-relaxed">
-                    No quedan mesas disponibles para la <strong class="text-amber-400">XLII Feria y Festival Nacional e Internacional del Charango Aiquile 2026</strong>.
-                </p>
-                <p class="text-slate-400 text-[11px]">
-                    Todas las mesas en las categorías Oro, Plata Doble, Plata Simple y Bronce han sido vendidas en su totalidad.
-                </p>
-            </div>
-
-            <div class="pt-2">
-                <button onclick="closeSoldOutModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3 px-4 rounded-xl text-xs transition border border-slate-700">
-                    Cerrar y Ver Plano Agotado
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- APPLICATION LOGIC -->
     <script>
-        // DATA & STATE
+        // Datos de distribución exacta según plano PDF
         const tablesData = [];
         let selectedTableId = null;
-        let attemptCount = 0; // Number of failed buy attempts
+        let isProcessing = false;
 
-        // Initialize BRONCE Tables (A-J) - 21 Tables simulated via letters A-J + subindices
-        const bronceLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-        bronceLetters.forEach((letter, idx) => {
-            const row = idx < 5 ? 0 : 1;
-            const col = idx % 5;
+        // Generar 49 Mesas ORO (Numeradas según plano)
+        const oroNumbers = [
+            90,89,88,87,86,85,84, 77,78,79,80,81,82,83, 76,75,74,73,72,71,70,
+            66,65,58,57,50,49,36,35,22,21,7,6, 67,68,59,60,51,52,48,47,37,38,23,24,8,9,5,4
+        ];
+        
+        // Coordenadas para zona ORO (Filas superiores)
+        let idCounter = 0;
+        for (let row = 0; row < 5; row++) {
+            for (let col = 0; col < 10; col++) {
+                if (idCounter >= 49) break;
+                const num = oroNumbers[idCounter] || (idCounter + 1);
+                tablesData.push({
+                    id: `ORO-${num}`,
+                    label: `${num}`,
+                    category: 'ORO',
+                    catClass: 'table-oro',
+                    price: 400,
+                    x: 65 + (col * 38),
+                    y: 40 + (row * 38),
+                    status: 'available'
+                });
+                idCounter++;
+            }
+        }
+
+        // 10 PLATA SIMPLE (Zona intermedia)
+        const plataSimpleNums = [61,62,63,53,54,55,43,44,45,33];
+        plataSimpleNums.forEach((num, index) => {
             tablesData.push({
-                id: `BR-${letter}`,
-                name: `Mesa ${letter}`,
-                category: 'BRONCE',
-                priceNum: 200,
-                x: 220 + (col * 110),
-                y: 830 + (row * 50),
-                width: 60,
-                height: 38,
-                isSold: false
+                id: `PS-${num}`,
+                label: `${num}`,
+                category: 'PLATA SIMPLE',
+                catClass: 'table-plata-simple',
+                price: 350,
+                x: 320 + ((index % 3) * 40),
+                y: 230 + (Math.floor(index / 3) * 40),
+                status: 'available'
             });
         });
 
-        // Initialize Central Tables (1B to 90B)
-        for (let i = 1; i <= 90; i++) {
-            let cat = 'ORO';
-            let priceNum = 400;
-
-            if (i >= 1 && i <= 10) {
-                cat = 'PLATA DOBLE';
-                priceNum = 500;
-            } else if (i >= 11 && i <= 20) {
-                cat = 'PLATA SIMPLE';
-                priceNum = 350;
-            } else {
-                cat = 'ORO';
-                priceNum = 400;
-            }
-
-            const col = (i - 1) % 6;
-            const row = Math.floor((i - 1) / 6);
-
-            let posX = 200 + (col * 88);
-            if (col >= 3) posX += 40; // Central aisle gap
-
-            let posY = 150 + (row * 42);
-
+        // 10 PLATA DOBLE (Zona lateral)
+        const plataDobleNums = [34,31,32,20,19,18,17,16,15,14];
+        plataDobleNums.forEach((num, index) => {
             tablesData.push({
-                id: `TB-${i}B`,
-                name: `Mesa ${i}B`,
-                category: cat,
-                priceNum: priceNum,
-                x: posX,
-                y: posY,
-                width: 54,
-                height: 32,
-                isSold: false
+                id: `PD-${num}`,
+                label: `${num}`,
+                category: 'PLATA DOBLE',
+                catClass: 'table-plata-doble',
+                price: 500,
+                x: 75 + ((index % 3) * 42),
+                y: 240 + (Math.floor(index / 3) * 42),
+                status: 'available'
             });
-        }
+        });
 
-        // RENDER SVG MAP
+        // 21 BRONCE (Filas con letras A-J cerca de la pista)
+        const bronceLetters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U'];
+        bronceLetters.forEach((letra, index) => {
+            tablesData.push({
+                id: `BRONCE-${letra}`,
+                label: letra,
+                category: 'BRONCE',
+                catClass: 'table-bronce',
+                price: 200,
+                x: 65 + ((index % 7) * 54),
+                y: 450 + (Math.floor(index / 7) * 36),
+                status: 'available'
+            });
+        });
+
+        // Renderizado inicial del mapa SVG
         function renderMap() {
-            const container = document.getElementById('tablesGroup');
-            let html = '';
+            const layer = document.getElementById('tables-layer');
+            layer.innerHTML = '';
 
-            let soldCount = 0;
-            const catCounts = {
-                'ORO': { total: 49, sold: 0 },
-                'PLATA DOBLE': { total: 10, sold: 0 },
-                'PLATA SIMPLE': { total: 10, sold: 0 },
-                'BRONCE': { total: 21, sold: 0 }
-            };
+            tablesData.forEach(table => {
+                const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                g.setAttribute('class', `table-group ${table.catClass} ${table.status === 'sold' ? 'table-sold' : ''}`);
+                g.setAttribute('id', `group-${table.id}`);
+                g.onclick = () => selectTable(table.id);
 
-            tablesData.forEach(t => {
-                if (t.isSold) {
-                    soldCount++;
-                    if (catCounts[t.category]) catCounts[t.category].sold++;
-                }
+                // Dibujar la mesa
+                const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                rect.setAttribute('x', table.x);
+                rect.setAttribute('y', table.y);
+                rect.setAttribute('width', 30);
+                rect.setAttribute('height', 30);
+                rect.setAttribute('rx', 5);
+                rect.setAttribute('class', 'table-shape');
 
-                const isSelected = t.id === selectedTableId;
+                // Sillas decorativas alrededor
+                const chairs = [
+                    {x: table.x + 10, y: table.y - 4, w: 10, h: 3},
+                    {x: table.x + 10, y: table.y + 31, w: 10, h: 3},
+                    {x: table.x - 4, y: table.y + 10, w: 3, h: 10},
+                    {x: table.x + 31, y: table.y + 10, w: 3, h: 10}
+                ];
 
-                let strokeColor = '#10b981'; // Green (Available)
-                let fillColor = '#064e3b';
-                let labelStatus = 'LIBRE';
+                chairs.forEach(c => {
+                    const chair = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    chair.setAttribute('x', c.x);
+                    chair.setAttribute('y', c.y);
+                    chair.setAttribute('width', c.w);
+                    chair.setAttribute('height', c.h);
+                    chair.setAttribute('fill', table.status === 'sold' ? '#ef4444' : '#64748b');
+                    chair.setAttribute('rx', 1);
+                    g.appendChild(chair);
+                });
 
-                if (t.isSold) {
-                    strokeColor = '#ef4444'; // Red (Sold)
-                    fillColor = '#450a0a';
-                    labelStatus = 'VENDIDO';
-                }
+                // Texto con el número o letra de la mesa
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', table.x + 15);
+                text.setAttribute('y', table.y + 16);
+                text.setAttribute('class', 'table-number');
+                text.textContent = table.label;
 
-                if (isSelected && !t.isSold) {
-                    strokeColor = '#38bdf8'; // Sky blue (Selected)
-                    fillColor = '#0c4a6e';
-                }
-
-                html += `
-                    <g class="table-node ${isSelected ? 'selected' : ''}" onclick="selectTable('${t.id}')">
-                        <rect class="base-rect" x="${t.x}" y="${t.y}" width="${t.width}" height="${t.height}" rx="6" 
-                              fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />
-                        
-                        ${t.isSold ? `<rect x="${t.x}" y="${t.y}" width="${t.width}" height="${t.height}" rx="6" fill="url(#soldHatch)" />` : ''}
-
-                        <text x="${t.x + t.width/2}" y="${t.y + 14}" fill="#f8fafc" font-size="10" font-weight="bold" text-anchor="middle">
-                            ${t.name}
-                        </text>
-
-                        <rect x="${t.x + 4}" y="${t.y + 18}" width="${t.width - 8}" height="10" rx="3" fill="${t.isSold ? '#dc2626' : '#10b981'}" opacity="0.9" />
-                        <text x="${t.x + t.width/2}" y="${t.y + 25.5}" fill="#ffffff" font-size="7" font-weight="extrabold" text-anchor="middle" letter-spacing="0.5">
-                            ${labelStatus}
-                        </text>
-                    </g>
-                `;
+                g.appendChild(rect);
+                g.appendChild(text);
+                layer.appendChild(g);
             });
 
-            container.innerHTML = html;
-            updateMetricsUI(soldCount, catCounts);
+            updateStats();
         }
 
-        // UPDATE COUNTERS & METRICS
-        function updateMetricsUI(soldCount, catCounts) {
-            const total = tablesData.length;
-            const pct = Math.round((soldCount / total) * 100);
+        // Actualizar estadísticas del panel
+        function updateStats() {
+            const soldCount = tablesData.filter(t => t.status === 'sold').length;
+            const availableCount = tablesData.length - soldCount;
+            const percent = Math.round((soldCount / tablesData.length) * 100);
 
-            document.getElementById('soldCounter').innerText = `${soldCount} / ${total}`;
-            document.getElementById('soldPercentage').innerText = `(${pct}%)`;
-            document.getElementById('availableText').innerText = `${total - soldCount} Mesas Libres`;
-
-            // Saturation Progress Bar
-            document.getElementById('saturationProgressBar').style.width = `${pct}%`;
-            document.getElementById('progressBarText').innerText = `${pct}% Agotado (Saturación ${pct > 80 ? 'CRÍTICA' : pct > 40 ? 'ALTA' : 'MODERADA'})`;
-            document.getElementById('attemptCounterLabel').innerText = `${attemptCount} / 5`;
-
-            // Category Counters
-            for (let cat in catCounts) {
-                const avail = catCounts[cat].total - catCounts[cat].sold;
-                const el = document.getElementById(`catAvailable-${cat}`);
-                if (el) {
-                    if (avail > 0) {
-                        el.innerText = `${avail} Libres`;
-                        el.className = "text-emerald-400 font-bold";
-                    } else {
-                        el.innerText = `0 Libres (Agotado)`;
-                        el.className = "text-red-400 font-bold";
-                    }
-                }
-            }
-
-            // Top Status Dot
-            const demandText = document.getElementById('liveDemandText');
-            const statusDot = document.getElementById('statusDot');
-            const statusPing = document.getElementById('statusPing');
-
-            if (pct >= 100) {
-                demandText.innerText = "EVENTO TOTALMENTE AGOTADO • Sin mesas disponibles";
-                statusDot.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600";
-                statusPing.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75";
-            } else if (pct > 50) {
-                demandText.innerText = "ALTA CONCURRENCIA • Mesas agotándose por compras masivas";
-                statusDot.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500";
-                statusPing.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75";
-            } else {
-                demandText.innerText = "SISTEMA EN LÍNEA • Venta habilitada";
-                statusDot.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";
-                statusPing.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
-            }
+            document.getElementById('stat-available').textContent = availableCount;
+            document.getElementById('stat-sold').textContent = soldCount;
+            document.getElementById('stat-percent').textContent = `${percent}%`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
         }
 
-        // HANDLE TABLE SELECTION
+        // Seleccionar una mesa
         function selectTable(id) {
-            const isAllSold = tablesData.every(t => t.isSold);
-            if (isAllSold) {
-                document.getElementById('soldOutModal').classList.remove('hidden');
-                return;
-            }
+            if (isProcessing) return;
 
             const table = tablesData.find(t => t.id === id);
-            if (!table) return;
+            if (!table || table.status === 'sold') return;
 
             selectedTableId = id;
-            renderMap();
 
-            // Update Drawer Info
-            document.getElementById('selectedTableName').innerText = table.name;
-            document.getElementById('selectedTableCategory').innerText = `Categoría ${table.category}`;
-            document.getElementById('selectedPrice').innerHTML = `${table.priceNum} <span class="text-xs text-amber-400">BS</span>`;
+            document.getElementById('selection-placeholder').style.display = 'none';
+            const details = document.getElementById('selection-details');
+            details.style.display = 'block';
 
-            const badge = document.getElementById('selectedStatusBadge');
-            const btn = document.getElementById('btnBuySubmit');
-
-            if (table.isSold) {
-                badge.innerText = "OCUPADO / VENDIDO";
-                badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-red-950 text-red-400 border border-red-800";
-                btn.disabled = true;
-                btn.className = "w-full bg-slate-800 text-slate-500 cursor-not-allowed font-extrabold py-3 px-4 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2";
-                btn.innerHTML = `<i class="fa-solid fa-ban"></i> Mesa Agotada`;
-            } else {
-                badge.innerText = "DISPONIBLE";
-                badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800";
-                btn.disabled = false;
-                btn.className = "w-full bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 cursor-pointer font-extrabold py-3 px-4 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2";
-                btn.innerHTML = `<i class="fa-solid fa-lock-open"></i> Procesar Pago y Reservar`;
-            }
+            document.getElementById('detail-table-id').textContent = `Mesa #${table.label}`;
+            document.getElementById('detail-category').textContent = `Categoría: ${table.category}`;
+            document.getElementById('detail-price').textContent = `${table.price} BS`;
         }
 
-        // SUBMIT FORM AND TRIGGER SIMULATED PURCHASE FAILURE & MASS SOLD OUT
-        function submitPurchaseForm(e) {
-            e.preventDefault();
-            if (!selectedTableId) return;
+        // Intentar compra con simulación de lentitud/carga y llenado de mesas
+        function attemptPurchase() {
+            if (!selectedTableId || isProcessing) return;
 
-            const table = tablesData.find(t => t.id === selectedTableId);
-            if (!table || table.isSold) return;
+            isProcessing = true;
+            const btn = document.getElementById('btn-process-buy');
+            const loadingStatus = document.getElementById('loading-status');
+            const loadingMsg = document.getElementById('loading-msg');
+            
+            btn.disabled = true;
+            loadingStatus.style.display = 'block';
+            loadingMsg.textContent = "Verificando disponibilidad en el servidor...";
 
-            showProcessingModal(table.name);
-        }
+            // Bucle progresivo que va ocupando mesas mientras "carga"
+            let step = 0;
+            const fillInterval = setInterval(() => {
+                step++;
+                
+                // Marcar la mesa seleccionada como vendida y algunas mesas adicionales aleatorias
+                sellRandomTables(3 + Math.floor(Math.random() * 4));
 
-        function showProcessingModal(tableName) {
-            const procModal = document.getElementById('processingModal');
-            const progressBar = document.getElementById('progressBar');
-            const stepText = document.getElementById('processingStepText');
+                if (step === 1) {
+                    loadingMsg.textContent = "Conectando con la pasarela de pagos...";
+                } else if (step === 2) {
+                    loadingMsg.textContent = "Procesando la transacción...";
+                } else if (step >= 4) {
+                    clearInterval(fillInterval);
+                    
+                    // Finalizar intento de carga
+                    isProcessing = false;
+                    loadingStatus.style.display = 'none';
+                    btn.disabled = false;
 
-            procModal.classList.remove('hidden');
-            progressBar.style.width = '0%';
-            stepText.innerText = "Conectando con la pasarela central de Aiquile...";
-
-            setTimeout(() => {
-                progressBar.style.width = '35%';
-                stepText.innerText = `Iniciando reserva de ${tableName}...`;
-            }, 800);
-
-            setTimeout(() => {
-                progressBar.style.width = '70%';
-                stepText.innerText = "Verificando disponibilidad de pasarela bancaria...";
-            }, 1800);
-
-            setTimeout(() => {
-                progressBar.style.width = '95%';
-                stepText.innerText = "Alta concurrencia detectada. Reintentando confirmación...";
-            }, 2800);
-
-            // FAIL AND MARK TABLES AS SOLD
-            setTimeout(() => {
-                procModal.classList.add('hidden');
-
-                // Increment Attempt Count
-                attemptCount++;
-
-                // Mark selected table as sold
-                const targetTable = tablesData.find(t => t.id === selectedTableId);
-                if (targetTable) targetTable.isSold = true;
-
-                // Sell an additional random chunk of tables based on attempt
-                sellRandomChunk();
-
-                renderMap();
-
-                // Check if now 100% sold
-                const allSold = tablesData.every(t => t.isSold);
-
-                if (allSold || attemptCount >= 5) {
-                    // Mark ALL remaining tables as sold
-                    tablesData.forEach(t => t.isSold = true);
-                    renderMap();
-                    document.getElementById('failedTableName').innerText = tableName;
-                    document.getElementById('errorModal').classList.remove('hidden');
-                } else {
-                    document.getElementById('failedTableName').innerText = tableName;
-                    document.getElementById('errorModal').classList.remove('hidden');
+                    // Ocultar detalles de la mesa si ya fue vendida
+                    document.getElementById('selection-details').style.display = 'none';
+                    document.getElementById('selection-placeholder').style.display = 'block';
+                    document.getElementById('selection-placeholder').textContent = "Seleccione otra mesa disponible para intentar la reserva.";
+                    selectedTableId = null;
                 }
-
-                // Reset selected state
-                if (targetTable) selectTable(targetTable.id);
-
-            }, 3600);
+            }, 1200);
         }
 
-        // SIMULATE MASS BUYING OF OTHER USERS IN PARALLEL
-        function sellRandomChunk() {
-            const availableTables = tablesData.filter(t => !t.isSold);
+        // Vender mesas aleatorias en cada ciclo de carga
+        function sellRandomTables(count) {
+            const availableTables = tablesData.filter(t => t.status === 'available');
             if (availableTables.length === 0) return;
 
-            // Number to sell: approximately 20-25% of total tables per attempt
-            const chunkSize = Math.min(availableTables.length, Math.ceil(tablesData.length * 0.22));
-
-            // Shuffle available
-            for (let i = availableTables.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [availableTables[i], availableTables[j]] = [availableTables[j], availableTables[i]];
+            // Si la mesa que el usuario estaba intentando comprar sigue disponible, se ocupa primero
+            if (selectedTableId) {
+                const target = tablesData.find(t => t.id === selectedTableId && t.status === 'available');
+                if (target) {
+                    target.status = 'sold';
+                }
             }
 
-            // Mark chunk as sold
-            for (let i = 0; i < chunkSize; i++) {
-                availableTables[i].isSold = true;
+            // Ocupar otras mesas adicionales de la lista de forma aleatoria
+            for (let i = 0; i < count; i++) {
+                const available = tablesData.filter(t => t.status === 'available');
+                if (available.length === 0) break;
+                const randomIndex = Math.floor(Math.random() * available.length);
+                available[randomIndex].status = 'sold';
             }
-        }
-
-        function closeErrorModal() {
-            document.getElementById('errorModal').classList.add('hidden');
-            if (tablesData.every(t => t.isSold)) {
-                setTimeout(() => {
-                    document.getElementById('soldOutModal').classList.remove('hidden');
-                }, 300);
-            }
-        }
-
-        function retryPurchase() {
-            closeErrorModal();
-            const firstAvailable = tablesData.find(t => !t.isSold);
-            if (firstAvailable) {
-                selectTable(firstAvailable.id);
-            } else {
-                document.getElementById('soldOutModal').classList.remove('hidden');
-            }
-        }
-
-        function closeSoldOutModal() {
-            document.getElementById('soldOutModal').classList.add('hidden');
-        }
-
-        // RESET SIMULATION
-        function resetSimulation() {
-            attemptCount = 0;
-            selectedTableId = null;
-            tablesData.forEach(t => t.isSold = false);
-            
-            document.getElementById('selectedTableName').innerText = "Mesa No Seleccionada";
-            document.getElementById('selectedTableCategory').innerText = "Haga clic sobre el mapa";
-            document.getElementById('selectedPrice').innerHTML = `0 <span class="text-xs text-amber-400">BS</span>`;
-            document.getElementById('selectedStatusBadge').innerText = "Ninguna";
-            document.getElementById('selectedStatusBadge').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400";
-            
-            const btn = document.getElementById('btnBuySubmit');
-            btn.disabled = true;
-            btn.className = "w-full bg-slate-800 text-slate-500 cursor-not-allowed font-extrabold py-3 px-4 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2";
-            btn.innerHTML = `<i class="fa-solid fa-lock"></i> Seleccione una Mesa Libre`;
 
             renderMap();
         }
 
-        // INIT ON LOAD
-        window.onload = function() {
-            renderMap();
-        };
+        // Inicializar mapa al cargar
+        renderMap();
     </script>
 </body>
 </html>
