@@ -14,7 +14,6 @@
             --accent-silver: #94a3b8;
             --accent-double: #a855f7;
             --accent-bronze: #d97706;
-            --status-available: #10b981;
             --status-sold: #ef4444;
             --border-color: #334155;
         }
@@ -116,7 +115,6 @@
             border-radius: 4px;
         }
 
-        /* SVG Layout Styling */
         .svg-container {
             width: 100%;
             max-width: 750px;
@@ -169,55 +167,24 @@
         }
 
         .table-group {
-            cursor: pointer;
-            transition: transform 0.15s ease, filter 0.15s ease;
-        }
-
-        .table-group:hover {
-            transform: scale(1.15);
-            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+            cursor: not-allowed;
         }
 
         .table-shape {
             stroke-width: 1.5;
-            transition: fill 0.4s ease, stroke 0.4s ease;
-        }
-
-        /* Category Colors */
-        .table-oro .table-shape { fill: var(--accent-gold); stroke: #fbbf24; }
-        .table-plata-simple .table-shape { fill: #64748b; stroke: #cbd5e1; }
-        .table-plata-doble .table-shape { fill: var(--accent-double); stroke: #c084fc; }
-        .table-bronce .table-shape { fill: var(--accent-bronze); stroke: #f59e0b; }
-
-        .table-sold .table-shape { 
-            fill: var(--status-sold) !important; 
-            stroke: #f87171 !important; 
-        }
-
-        .table-sold {
-            cursor: not-allowed;
-            opacity: 0.75;
-        }
-
-        .table-sold:hover {
-            transform: none;
-            filter: none;
+            fill: var(--status-sold) !important;
+            stroke: #f87171 !important;
         }
 
         .table-number {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
-            fill: #ffffff;
+            fill: #fee2e2;
             text-anchor: middle;
             dominant-baseline: central;
             pointer-events: none;
         }
 
-        .table-sold .table-number {
-            fill: #fee2e2;
-        }
-
-        /* Sidebar Control Panel */
         .sidebar {
             display: flex;
             flex-direction: column;
@@ -255,7 +222,7 @@
         .stat-box .number {
             font-size: 1.4rem;
             font-weight: bold;
-            color: #38bdf8;
+            color: #ef4444;
         }
 
         .stat-box .label {
@@ -273,9 +240,8 @@
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #10b981 0%, #ef4444 100%);
-            width: 0%;
-            transition: width 0.5s ease;
+            background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+            width: 100%;
         }
 
         .price-list {
@@ -306,54 +272,14 @@
         .badge-plata-doble { background-color: rgba(168, 85, 247, 0.2); color: #c084fc; }
         .badge-bronce { background-color: rgba(217, 119, 6, 0.2); color: #f59e0b; }
 
-        .selected-table-info {
-            background-color: #0f172a;
-            border: 1px solid #3b82f6;
+        .alert-box {
+            background-color: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
             border-radius: 8px;
             padding: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .btn-buy {
-            width: 100%;
-            padding: 0.8rem;
-            margin-top: 0.8rem;
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .btn-buy:hover { background-color: #1d4ed8; }
-        .btn-buy:disabled { background-color: #475569; cursor: not-allowed; }
-
-        .spinner {
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            font-size: 0.85rem;
-            color: #fbbf24;
-            margin-top: 0.5rem;
             text-align: center;
+            color: #fca5a5;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -369,49 +295,37 @@
         <!-- Mapa de Mesas SVG -->
         <section class="map-section">
             <div class="legend-bar">
-                <div class="legend-item"><div class="legend-color" style="background: var(--accent-gold);"></div> Oro (400 BS)</div>
-                <div class="legend-item"><div class="legend-color" style="background: var(--accent-silver);"></div> Plata Simple (350 BS)</div>
-                <div class="legend-item"><div class="legend-color" style="background: var(--accent-double);"></div> Plata Doble (500 BS)</div>
-                <div class="legend-item"><div class="legend-color" style="background: var(--accent-bronze);"></div> Bronce (200 BS)</div>
-                <div class="legend-item"><div class="legend-color" style="background: var(--status-sold);"></div> Ocupado / Vendido</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--status-sold);"></div> Todas las Mesas Ocupadas / Vendidas (1 al 90)</div>
             </div>
 
             <div class="svg-container">
                 <svg viewBox="0 0 500 850" id="stadium-map">
-                    <!-- Marco exterior coliseo -->
                     <rect x="10" y="10" width="480" height="830" rx="10" class="structure" />
                     
-                    <!-- Graderías Izquierda y Derecha -->
                     <rect x="15" y="100" width="30" height="600" class="bleachers" />
                     <text x="30" y="400" fill="#94a3b8" font-size="12" writing-mode="tb" text-anchor="middle">GRADERIAS</text>
                     
                     <rect x="455" y="100" width="30" height="600" class="bleachers" />
                     <text x="470" y="400" fill="#94a3b8" font-size="12" writing-mode="tb" text-anchor="middle">GRADERIAS</text>
 
-                    <!-- Baños -->
                     <rect x="455" y="100" width="30" height="70" class="restrooms" />
                     <text x="470" y="135" fill="#ffffff" font-size="9" text-anchor="middle">BAÑOS</text>
 
-                    <!-- Escenario -->
                     <rect x="100" y="740" width="300" height="80" class="stage-area" />
                     <text x="250" y="785" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">ESCENARIO</text>
                     <text x="250" y="805" fill="#fcd34d" font-size="10" text-anchor="middle">18,72 m x 8,00 m</text>
 
-                    <!-- Pista de Baile -->
                     <rect x="120" y="570" width="260" height="150" class="dance-floor" />
                     <text x="250" y="650" fill="#818cf8" font-size="16" font-weight="bold" text-anchor="middle">PISTA DE BAILE</text>
                     <text x="250" y="670" fill="#94a3b8" font-size="10" text-anchor="middle">10,00 m x 10,00 m</text>
 
-                    <!-- Control de Sonido -->
                     <rect x="210" y="270" width="80" height="50" class="sound-booth" />
                     <text x="250" y="293" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">CONTROL</text>
                     <text x="250" y="306" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">SONIDO</text>
 
-                    <!-- Vallas de Seguridad -->
                     <line x1="50" y1="730" x2="450" y2="730" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5" />
                     <line x1="50" y1="560" x2="450" y2="560" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5" />
 
-                    <!-- Grupo de Mesas (Dinámico vía JavaScript) -->
                     <g id="tables-layer"></g>
                 </svg>
             </div>
@@ -419,29 +333,27 @@
 
         <!-- Sidebar / Panel lateral -->
         <aside class="sidebar">
-            <!-- Estadísticas de Disponibilidad -->
             <div class="panel-card">
                 <h3>Estado del Sistema</h3>
                 <div class="stats-grid">
                     <div class="stat-box">
-                        <div class="number" id="stat-available">90</div>
+                        <div class="number" style="color: #10b981;">0</div>
                         <div class="label">Disponibles</div>
                     </div>
                     <div class="stat-box">
-                        <div class="number" id="stat-sold" style="color: #ef4444;">0</div>
+                        <div class="number" id="stat-sold">90</div>
                         <div class="label">Ocupadas</div>
                     </div>
                 </div>
                 <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" id="progress-bar"></div>
+                    <div class="progress-bar-fill"></div>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem;">
                     <span>Ocupación Recinto:</span>
-                    <span id="stat-percent" style="font-weight: bold; color: #f8fafc;">0%</span>
+                    <span style="font-weight: bold; color: #ef4444;">100% AGOTADO</span>
                 </div>
             </div>
 
-            <!-- Precios -->
             <div class="panel-card">
                 <h3>Categorías y Tarifas</h3>
                 <div class="price-list">
@@ -464,47 +376,30 @@
                 </div>
             </div>
 
-            <!-- Selección y Procesamiento -->
             <div class="panel-card">
-                <h3>Comprar / Reservar</h3>
-                <div id="selection-placeholder" style="color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 1rem 0;">
-                    Seleccione una mesa disponible en el plano para iniciar la compra.
-                </div>
-
-                <div id="selection-details" class="selected-table-info" style="display: none;">
-                    <div style="font-weight: bold; font-size: 1.1rem; color: #38bdf8;" id="detail-table-id">Mesa #--</div>
-                    <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 0.2rem;" id="detail-category">Categoría: --</div>
-                    <div style="font-size: 1.2rem; font-weight: bold; color: #fbbf24; margin-top: 0.5rem;" id="detail-price">0 BS</div>
-
-                    <button class="btn-buy" id="btn-process-buy" onclick="attemptPurchase()">
-                        <span id="btn-buy-text">Procesar Pago y Reservar</span>
-                    </button>
-                    <div class="loading-text" id="loading-status" style="display: none;">
-                        <span class="spinner"></span> <span id="loading-msg">Procesando solicitud en el servidor...</span>
-                    </div>
+                <h3>Aviso del Sistema</h3>
+                <div class="alert-box">
+                    ¡EVENTO TOTALMENTE AGOTADO!<br>
+                    Todas las mesas se encuentran ocupadas o reservadas. No hay disponibilidad para la compra.
                 </div>
             </div>
         </aside>
     </div>
 
     <script>
-        // Datos de distribución exacta según plano PDF
         const tablesData = [];
-        let selectedTableId = null;
-        let isProcessing = false;
 
-        // Generar 49 Mesas ORO (Numeradas según plano)
-        const oroNumbers = [
-            90,89,88,87,86,85,84, 77,78,79,80,81,82,83, 76,75,74,73,72,71,70,
-            66,65,58,57,50,49,36,35,22,21,7,6, 67,68,59,60,51,52,48,47,37,38,23,24,8,9,5,4
-        ];
-        
-        // Coordenadas para zona ORO (Filas superiores)
-        let idCounter = 0;
+        // Generar exactamente las 49 mesas ORO ordenadas de forma descendente (del 90 al 1)
+        const oroNumbersDesc = [];
+        for (let i = 90; i >= 1; i--) {
+            oroNumbersDesc.push(i);
+        }
+
+        let oroCount = 0;
         for (let row = 0; row < 5; row++) {
             for (let col = 0; col < 10; col++) {
-                if (idCounter >= 49) break;
-                const num = oroNumbers[idCounter] || (idCounter + 1);
+                if (oroCount >= 49) break;
+                const num = oroNumbersDesc[oroCount];
                 tablesData.push({
                     id: `ORO-${num}`,
                     label: `${num}`,
@@ -513,15 +408,15 @@
                     price: 400,
                     x: 65 + (col * 38),
                     y: 40 + (row * 38),
-                    status: 'available'
+                    status: 'sold'
                 });
-                idCounter++;
+                oroCount++;
             }
         }
 
-        // 10 PLATA SIMPLE (Zona intermedia)
-        const plataSimpleNums = [61,62,63,53,54,55,43,44,45,33];
-        plataSimpleNums.forEach((num, index) => {
+        // 10 PLATA SIMPLE en orden descendente
+        const plataSimpleNumsDesc = [63, 62, 61, 55, 54, 53, 45, 44, 43, 33];
+        plataSimpleNumsDesc.forEach((num, index) => {
             tablesData.push({
                 id: `PS-${num}`,
                 label: `${num}`,
@@ -530,13 +425,13 @@
                 price: 350,
                 x: 320 + ((index % 3) * 40),
                 y: 230 + (Math.floor(index / 3) * 40),
-                status: 'available'
+                status: 'sold'
             });
         });
 
-        // 10 PLATA DOBLE (Zona lateral)
-        const plataDobleNums = [34,31,32,20,19,18,17,16,15,14];
-        plataDobleNums.forEach((num, index) => {
+        // 10 PLATA DOBLE en orden descendente
+        const plataDobleNumsDesc = [34, 32, 31, 20, 19, 18, 17, 16, 15, 14];
+        plataDobleNumsDesc.forEach((num, index) => {
             tablesData.push({
                 id: `PD-${num}`,
                 label: `${num}`,
@@ -545,13 +440,13 @@
                 price: 500,
                 x: 75 + ((index % 3) * 42),
                 y: 240 + (Math.floor(index / 3) * 42),
-                status: 'available'
+                status: 'sold'
             });
         });
 
-        // 21 BRONCE (Filas con letras A-J cerca de la pista)
-        const bronceLetters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U'];
-        bronceLetters.forEach((letra, index) => {
+        // 21 BRONCE en orden descendente (U a A)
+        const bronceLettersDesc = ['U','T','S','R','Q','P','O','N','M','L','K','J','I','H','G','F','E','D','C','B','A'];
+        bronceLettersDesc.forEach((letra, index) => {
             tablesData.push({
                 id: `BRONCE-${letra}`,
                 label: letra,
@@ -560,22 +455,19 @@
                 price: 200,
                 x: 65 + ((index % 7) * 54),
                 y: 450 + (Math.floor(index / 7) * 36),
-                status: 'available'
+                status: 'sold'
             });
         });
 
-        // Renderizado inicial del mapa SVG
+        // Renderizar mapa
         function renderMap() {
             const layer = document.getElementById('tables-layer');
             layer.innerHTML = '';
 
             tablesData.forEach(table => {
                 const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                g.setAttribute('class', `table-group ${table.catClass} ${table.status === 'sold' ? 'table-sold' : ''}`);
-                g.setAttribute('id', `group-${table.id}`);
-                g.onclick = () => selectTable(table.id);
+                g.setAttribute('class', `table-group table-sold`);
 
-                // Dibujar la mesa
                 const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                 rect.setAttribute('x', table.x);
                 rect.setAttribute('y', table.y);
@@ -584,7 +476,6 @@
                 rect.setAttribute('rx', 5);
                 rect.setAttribute('class', 'table-shape');
 
-                // Sillas decorativas alrededor
                 const chairs = [
                     {x: table.x + 10, y: table.y - 4, w: 10, h: 3},
                     {x: table.x + 10, y: table.y + 31, w: 10, h: 3},
@@ -598,12 +489,11 @@
                     chair.setAttribute('y', c.y);
                     chair.setAttribute('width', c.w);
                     chair.setAttribute('height', c.h);
-                    chair.setAttribute('fill', table.status === 'sold' ? '#ef4444' : '#64748b');
+                    chair.setAttribute('fill', '#ef4444');
                     chair.setAttribute('rx', 1);
                     g.appendChild(chair);
                 });
 
-                // Texto con el número o letra de la mesa
                 const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 text.setAttribute('x', table.x + 15);
                 text.setAttribute('y', table.y + 16);
@@ -614,107 +504,8 @@
                 g.appendChild(text);
                 layer.appendChild(g);
             });
-
-            updateStats();
         }
 
-        // Actualizar estadísticas del panel
-        function updateStats() {
-            const soldCount = tablesData.filter(t => t.status === 'sold').length;
-            const availableCount = tablesData.length - soldCount;
-            const percent = Math.round((soldCount / tablesData.length) * 100);
-
-            document.getElementById('stat-available').textContent = availableCount;
-            document.getElementById('stat-sold').textContent = soldCount;
-            document.getElementById('stat-percent').textContent = `${percent}%`;
-            document.getElementById('progress-bar').style.width = `${percent}%`;
-        }
-
-        // Seleccionar una mesa
-        function selectTable(id) {
-            if (isProcessing) return;
-
-            const table = tablesData.find(t => t.id === id);
-            if (!table || table.status === 'sold') return;
-
-            selectedTableId = id;
-
-            document.getElementById('selection-placeholder').style.display = 'none';
-            const details = document.getElementById('selection-details');
-            details.style.display = 'block';
-
-            document.getElementById('detail-table-id').textContent = `Mesa #${table.label}`;
-            document.getElementById('detail-category').textContent = `Categoría: ${table.category}`;
-            document.getElementById('detail-price').textContent = `${table.price} BS`;
-        }
-
-        // Intentar compra con simulación de lentitud/carga y llenado de mesas
-        function attemptPurchase() {
-            if (!selectedTableId || isProcessing) return;
-
-            isProcessing = true;
-            const btn = document.getElementById('btn-process-buy');
-            const loadingStatus = document.getElementById('loading-status');
-            const loadingMsg = document.getElementById('loading-msg');
-            
-            btn.disabled = true;
-            loadingStatus.style.display = 'block';
-            loadingMsg.textContent = "Verificando disponibilidad en el servidor...";
-
-            // Bucle progresivo que va ocupando mesas mientras "carga"
-            let step = 0;
-            const fillInterval = setInterval(() => {
-                step++;
-                
-                // Marcar la mesa seleccionada como vendida y algunas mesas adicionales aleatorias
-                sellRandomTables(3 + Math.floor(Math.random() * 4));
-
-                if (step === 1) {
-                    loadingMsg.textContent = "Conectando con la pasarela de pagos...";
-                } else if (step === 2) {
-                    loadingMsg.textContent = "Procesando la transacción...";
-                } else if (step >= 4) {
-                    clearInterval(fillInterval);
-                    
-                    // Finalizar intento de carga
-                    isProcessing = false;
-                    loadingStatus.style.display = 'none';
-                    btn.disabled = false;
-
-                    // Ocultar detalles de la mesa si ya fue vendida
-                    document.getElementById('selection-details').style.display = 'none';
-                    document.getElementById('selection-placeholder').style.display = 'block';
-                    document.getElementById('selection-placeholder').textContent = "Seleccione otra mesa disponible para intentar la reserva.";
-                    selectedTableId = null;
-                }
-            }, 1200);
-        }
-
-        // Vender mesas aleatorias en cada ciclo de carga
-        function sellRandomTables(count) {
-            const availableTables = tablesData.filter(t => t.status === 'available');
-            if (availableTables.length === 0) return;
-
-            // Si la mesa que el usuario estaba intentando comprar sigue disponible, se ocupa primero
-            if (selectedTableId) {
-                const target = tablesData.find(t => t.id === selectedTableId && t.status === 'available');
-                if (target) {
-                    target.status = 'sold';
-                }
-            }
-
-            // Ocupar otras mesas adicionales de la lista de forma aleatoria
-            for (let i = 0; i < count; i++) {
-                const available = tablesData.filter(t => t.status === 'available');
-                if (available.length === 0) break;
-                const randomIndex = Math.floor(Math.random() * available.length);
-                available[randomIndex].status = 'sold';
-            }
-
-            renderMap();
-        }
-
-        // Inicializar mapa al cargar
         renderMap();
     </script>
 </body>
